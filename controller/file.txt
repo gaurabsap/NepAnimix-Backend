@@ -1,0 +1,52 @@
+if (!id) {
+    return res.status(400).json({
+      message: "Id is required",
+    });
+  }
+  if (!userId || !comment) {
+    return res.status(400).json({
+      message: "Provide full details",
+    });
+  }
+  try {
+    const findComment = await CommentModel.findById({ _id: id });
+    if (!findComment) {
+      console.log(id);
+      const findNestReply = await CommentModel.findOne({
+        "replies._id": id,
+      });
+      console.log(findNestReply);
+    }
+    const newReply = new CommentModel({
+      userId,
+      comment,
+      likes: likes || 0,
+      dislikes: dislikes || 0,
+    });
+    findComment.replies.push(newReply);
+    await findComment.save();
+    if (!push) {
+      console.log("failed to add comment");
+    }
+    console.log("Reply added sucessfully!!");
+  } catch (error) {}
+
+
+
+
+
+
+
+
+
+    // const addreply = await CommentModel.updateOne(
+  //     { _id: id },
+  //     {
+  //       $set: {
+  //         replies: req.body,
+  //       },
+  //     }
+  //   );
+  //   if (addreply.nModified) {
+  //     console.log("comment added");
+  //   }

@@ -4,10 +4,12 @@ import Connectdb from "./database/Db.js";
 import dotenv from "dotenv";
 import cookieparser from "cookie-parser";
 import cors from "cors";
+import croute from "./routes/userComment.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use("/api/v1", route);
+app.use("/api/v1", croute);
 app.use(cookieparser());
 app.use(cors());
 
