@@ -14,8 +14,7 @@ const ReplySchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default:
-        "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
+      default: "https://wallpapercave.com/wp/wp6663778.jpg",
     },
     comment: {
       type: String,
@@ -49,8 +48,7 @@ const CommentSchema = new mongoose.Schema(
     },
     photo: {
       type: String,
-      default:
-        "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
+      default: "https://wallpapercave.com/wp/wp6663778.jpg",
     },
     comment: {
       type: String,
@@ -72,6 +70,10 @@ const CommentSchema = new mongoose.Schema(
 );
 
 const MainCommentSchema = new mongoose.Schema({
+  AnimeId: {
+    type: String,
+    required: true,
+  },
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "usersdata",
@@ -84,8 +86,7 @@ const MainCommentSchema = new mongoose.Schema({
   },
   photo: {
     type: String,
-    default:
-      "https://www.personality-insights.com/wp-content/uploads/2017/12/default-profile-pic-e1513291410505.jpg",
+    default: "https://wallpapercave.com/wp/wp6663778.jpg",
   },
   comment: {
     type: String,

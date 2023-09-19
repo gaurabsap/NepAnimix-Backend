@@ -50,3 +50,8 @@ if (!id) {
   //   if (addreply.nModified) {
   //     console.log("comment added");
   //   }
+
+
+
+  $or: [{ _id: comment, userId: user }, { "replies._id": id }, { "replies.replies._id": id }],
+    });

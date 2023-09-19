@@ -8,10 +8,15 @@ import croute from "./routes/userComment.js";
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use("/api/v1", route);
 app.use("/api/v1", croute);
 app.use(cookieparser());
-app.use(cors());
 
 dotenv.config();
 app.listen(4000, () => {

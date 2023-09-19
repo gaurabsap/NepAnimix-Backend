@@ -116,11 +116,16 @@ export const LogoutUser = (resq, resp) => {
     return resp.cookie("neptoken", "", {
       httpOnly: true,
       path: "/",
-      expires: new Date(Date.now(0)),
+      expires: new Date(0),
       sameSite: "none",
       secure: true,
     });
   } catch (error) {
     return resp.status(500).send("Server error");
   }
+};
+
+export const GetUser = async (req, res) => {
+  console.log(req.id);
+  console.log("hit");
 };

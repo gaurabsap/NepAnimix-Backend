@@ -2,10 +2,10 @@ import { CommentModel } from "../model/commentSchema.js";
 import { UserModel } from "../model/userSchema.js";
 
 export const CreateComment = async (req, res) => {
-  const { userId } = req.body;
-  if (!userId) {
+  const { AnimeId, userId, comment } = req.body;
+  if (!userId || !AnimeId || !comment) {
     return res.status(400).json({
-      message: "UserId is required",
+      message: "Provide full details ",
     });
   }
   const findUser = await UserModel.findOne({
@@ -17,21 +17,31 @@ export const CreateComment = async (req, res) => {
     });
   }
   console.log(findUser.username);
-  const create = CommentModel.create({
+  const data = await CommentModel.create({
     userId: req.body.userId,
+    AnimeId: req.body.AnimeId,
     username: findUser.username,
     comment: req.body.comment,
     likes: req.body.likes || 0,
     dislikes: req.body.dislikes || 0,
   });
+  const sortedComments = await CommentModel.find({ AnimeId }).sort({
+    timestampField: -1,
+  });
+
+  const newlyAddedComment = sortedComments[0];
   return res.status(201).json({
     message: "Comment created sucessfully",
-    create,
+    data,
   });
 };
 export const getComment = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
   try {
-    const data = await CommentModel.find({});
+    const data = await CommentModel.find({
+      AnimeId: id,
+    });
     return res.status(200).json({
       sucess: true,
       data,
